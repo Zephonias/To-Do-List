@@ -5,8 +5,9 @@ const ulItem = document.querySelector("ul");
 
 function addLists(){
     let deleteBtn = '';
-    let span = '';
+    var span = '';
     let radio = '';
+    let li = '';
 
     if ( inputValue.value === ''){
         alert("Please enter a task");
@@ -19,9 +20,12 @@ function addLists(){
     radio.type = 'checkbox';
     radio.class = 'radio';
     radio.borderRadius = '50%';
-    radio.id = "isChecked";
+    // radio.id = "isChecked";
+    radio.name = 'check';
 
     span.innerHTML = inputValue.value;
+    span.id = "textToChange";
+    span.style.textDecoration = "none";
     li.style.fontSize = '20px';
 
     deleteBtn.style.background = 'url("img/delete.png")';
@@ -40,7 +44,7 @@ function addLists(){
     inputValue.value = '';
     }
     
-    function deleteContent(){
+function deleteContent(){
         const liD = deleteBtn.parentNode;
         const ull = liD.parentNode;
         ull.removeChild(liD);
@@ -51,23 +55,15 @@ function addLists(){
     }
 )
 
-    function taskDone(){
-     if(radio.checked === true){
-        const isChecked = radio.parentNode;
-        isChecked.span.style.textDecoration = "line-through";
-     }
-     else{
-        const isChecked = radio.parentNode;
-        isChecked.span.style.textDecoration = "none";
-     }
-     radio.addEventListener('click', () =>{
-        taskDone();
-    })
+radio.addEventListener('change', () => {
+    if (radio.checked) {
+        span.style.textDecoration = "line-through";
+    } else {
+        span.style.textDecoration = "none";
     }
-
-    
+});
 }
- 
+
 addBtn.addEventListener("click", () =>{
     addLists();
 })
